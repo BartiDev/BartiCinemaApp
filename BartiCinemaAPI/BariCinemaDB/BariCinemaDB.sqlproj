@@ -67,6 +67,10 @@
     <Folder Include="Customer\" />
     <Folder Include="Customer\Tables\" />
     <Folder Include="Security\" />
+    <Folder Include="Movie\Functions\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="Movie\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Reservation\Tables\Bookings.sql" />
@@ -81,5 +85,8 @@
     <Build Include="Security\Customer.sql" />
     <Build Include="Security\Movie.sql" />
     <Build Include="Security\Reservation.sql" />
+    <Build Include="Movie\Functions\ufn_GetMovies.sql" />
+    <Build Include="dbo\Functions\ufn_GetObjectInfo.sql" />
+    <Build Include="Movie\Stored Procedures\usp_GetMovies.sql" />
   </ItemGroup>
 </Project>
