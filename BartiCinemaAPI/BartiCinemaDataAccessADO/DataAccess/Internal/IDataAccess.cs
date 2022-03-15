@@ -2,7 +2,7 @@
 
 namespace BartiCinemaDataAccessADO.DataAccess
 {
-    public interface IDataAccess
+    internal interface IDataAccess
     {
         List<U> LoadData<U>(string connectionString, SqlMessage sqlMessage);
     }

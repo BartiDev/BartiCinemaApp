@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BartiCinemaDataAccessADO.DataAccess
 {
-    public class DataAccess : IDataAccess
+    internal class DataAccess : IDataAccess
     {
         // Load any DAL entity
         public List<U> LoadData<U>(string connectionString, SqlMessage sqlMessage)

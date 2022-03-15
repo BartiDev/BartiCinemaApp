@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BartiCinemaDataAccessADO.DataAccess
 {
-    public class SqlObjectParameter
+    internal class SqlObjectParameter
     {
         public int ParameterId { get; set; }
         public string ParameterName { get; set; }

@@ -4,14 +4,14 @@ using System.Text;
 
 namespace BartiCinemaDataAccessADO.DataAccess
 {
-    public class SqlMessage
+    internal class SqlMessage
     {
         public string SqlBody { get; set; }
         public SqlMessageType Type { get; set; }
         public SqlMessageParameter[] Parameters { get; set; }
     }
 
-    public enum SqlMessageType
+    internal enum SqlMessageType
     {
         Query,
         UserDefinedFunction,
