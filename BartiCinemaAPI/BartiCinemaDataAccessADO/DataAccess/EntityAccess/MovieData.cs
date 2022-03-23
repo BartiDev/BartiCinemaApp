@@ -1,20 +1,27 @@
 ﻿using BartiCinemaDataAccessADO.Entities;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using Microsoft.Extensions.Configuration;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BartiCinemaDataAccessADO.DataAccess
 {
-    public class MovieData
+    public class MovieData : IMovieData 
     {
+        private readonly IConfiguration _configuration;
         IDataAccess _data = new DataAccess();
 
-        public List<MovieDAL> GetMovies(int? movieId = null, string movieTitle = null, string movieDirector = null)
+        public MovieData(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public async Task<List<MovieDAL>> GetMovies(int? movieId = null, string movieTitle = null, string movieDirector = null)
         {
             SqlMessage sqlMessage = new SqlMessage();
             sqlMessage.SqlBody = "Movie.ufn_GetMovies";
-            string connectionString = ConfigurationManager.ConnectionStrings["BartiCinemaDB"].ConnectionString;
+            string connectionString = _configuration.GetConnectionString("BartiCinemaDB");
             sqlMessage.Parameters = new SqlMessageParameter[]
             {
                 new SqlMessageParameter(){Name = "@MovieId", Value = movieId},
@@ -22,7 +29,7 @@ namespace BartiCinemaDataAccessADO.DataAccess
                 new SqlMessageParameter(){Name = "@MovieDirector", Value = movieDirector}
             };
             sqlMessage.Type = SqlMessageType.UserDefinedFunction;
-            return _data.LoadData<MovieDAL>(connectionString, sqlMessage);
+            return await _data.LoadData<MovieDAL>(connectionString, sqlMessage);
         }
     }
 }

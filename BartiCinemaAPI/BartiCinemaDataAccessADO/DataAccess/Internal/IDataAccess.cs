@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BartiCinemaDataAccessADO.DataAccess
 {
     internal interface IDataAccess
     {
-        List<U> LoadData<U>(string connectionString, SqlMessage sqlMessage);
+        Task<List<U>> LoadData<U>(string connectionString, SqlMessage sqlMessage);
     }
 }

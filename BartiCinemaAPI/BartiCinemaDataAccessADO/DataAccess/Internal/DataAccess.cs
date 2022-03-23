@@ -5,13 +5,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BartiCinemaDataAccessADO.DataAccess
 {
     internal class DataAccess : IDataAccess
     {
         // Load any DAL entity
-        public List<U> LoadData<U>(string connectionString, SqlMessage sqlMessage)
+        public async Task<List<U>> LoadData<U>(string connectionString, SqlMessage sqlMessage)
         {
             List<U> result = new List<U>();
 
@@ -35,10 +36,10 @@ namespace BartiCinemaDataAccessADO.DataAccess
                 cnn.Open();
 
                 // Construct SqlCommand based on sqlMessage
-                SqlCommand command = ConstructSqlCommand(cnn, sqlMessage);
+                SqlCommand command = await ConstructSqlCommand (cnn, sqlMessage);
 
                 // Iterate through reader
-                SqlDataReader reader = command.ExecuteReader();
+                SqlDataReader reader = await command.ExecuteReaderAsync();
                 while (reader.Read())
                 {
                     // Fill array with one record of values from table matching U Type
@@ -62,7 +63,7 @@ namespace BartiCinemaDataAccessADO.DataAccess
             return result;
         }
 
-        private SqlCommand ConstructSqlCommand(SqlConnection cnn, SqlMessage sqlMessage)
+        private async Task<SqlCommand> ConstructSqlCommand(SqlConnection cnn, SqlMessage sqlMessage)
         {
             SqlCommand result = new SqlCommand();
             result.Connection = cnn;
@@ -88,7 +89,7 @@ namespace BartiCinemaDataAccessADO.DataAccess
                         else
                         {
                             // Collect info about function's paramters
-                            SqlObjectInfo ufnInfo = GetSqlObjectInfo(cnn, sqlMessage.SqlBody);
+                            SqlObjectInfo ufnInfo = await GetSqlObjectInfo(cnn, sqlMessage.SqlBody);
 
                             result.CommandText = "SELECT * FROM " + sqlMessage.SqlBody + "(";
                             foreach(SqlObjectParameter parameter in ufnInfo.Parameters)
@@ -128,7 +129,7 @@ namespace BartiCinemaDataAccessADO.DataAccess
             return result;
         }
 
-        private SqlObjectInfo GetSqlObjectInfo(SqlConnection cnn, string objectName)
+        private async Task<SqlObjectInfo> GetSqlObjectInfo(SqlConnection cnn, string objectName)
         {
             SqlObjectInfo objectInfo = new SqlObjectInfo();
 
@@ -138,7 +139,7 @@ namespace BartiCinemaDataAccessADO.DataAccess
             SqlCommand command = new SqlCommand($"SELECT * FROM [dbo].[ufn_GetObjectInfo]('{objectName}')", cnn);
             command.CommandType = System.Data.CommandType.Text;
 
-            SqlDataReader reader = command.ExecuteReader();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
 
             reader.Read();
             if (reader["ObjectName"] == null)
@@ -166,7 +167,7 @@ namespace BartiCinemaDataAccessADO.DataAccess
             } while (reader.Read());
 
             reader.Close();
-            reader.DisposeAsync();
+            await reader.DisposeAsync();
 
             return objectInfo;
         }
