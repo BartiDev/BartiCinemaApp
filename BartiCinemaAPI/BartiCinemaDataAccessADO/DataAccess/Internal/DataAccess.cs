@@ -81,7 +81,7 @@ namespace BartiCinemaDataAccessADO.DataAccess
                         result.Connection = cnn;
 
                         // Check for parameters
-                        if(sqlMessage.Parameters.Length < 0)
+                        if(sqlMessage.Parameters.Length <= 0)
                         {
                             // In case of zero parameters query is just as simple
                             result.CommandText = "SELECT * FROM " + sqlMessage.SqlBody + "()";

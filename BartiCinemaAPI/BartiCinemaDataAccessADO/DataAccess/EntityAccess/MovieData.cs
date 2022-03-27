@@ -10,7 +10,7 @@ namespace BartiCinemaDataAccessADO.DataAccess
     public class MovieData : IMovieData 
     {
         private readonly IConfiguration _configuration;
-        IDataAccess _data = new DataAccess();
+        private readonly IDataAccess _data = new DataAccess();
 
         public MovieData(IConfiguration configuration)
         {
