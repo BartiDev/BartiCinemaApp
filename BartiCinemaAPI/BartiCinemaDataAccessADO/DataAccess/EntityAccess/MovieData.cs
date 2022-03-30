@@ -31,5 +31,24 @@ namespace BartiCinemaDataAccessADO.DataAccess
             sqlMessage.Type = SqlMessageType.UserDefinedFunction;
             return await _data.LoadData<MovieDAL>(connectionString, sqlMessage);
         }
+
+        public async Task<List<MovieDAL>> GetMoviesByScreeningDate(DateTime startTime, DateTime endTime, int cinemaId)
+        {
+            SqlMessage sqlMessage = new SqlMessage();
+            sqlMessage.SqlBody = "Movie.ufn_GetMoviesByScreeningDate";
+            string connectionString = _configuration.GetConnectionString("BartiCinemaDB");
+
+            string startTimeString = startTime.ToString("yyyy-MM-dd");
+            string endTimeString = endTime.ToString("yyyy-MM-dd");
+
+            sqlMessage.Parameters = new SqlMessageParameter[]
+            {
+                new SqlMessageParameter(){Name = "@StartTime", Value = startTimeString},
+                new SqlMessageParameter(){Name = "@EndTime", Value = endTimeString},
+                new SqlMessageParameter(){Name = "@CinemaId", Value = cinemaId}
+            };
+            sqlMessage.Type = SqlMessageType.UserDefinedFunction;
+            return await _data.LoadData<MovieDAL>(connectionString, sqlMessage);
+        }
     }
 }

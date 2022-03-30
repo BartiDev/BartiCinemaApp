@@ -97,7 +97,9 @@ namespace BartiCinemaDataAccessADO.DataAccess
                                 // Pass parameters exactly in a way defined by function definition
                                 // Order of parameters in ufnInfo is correct order of passing parameters to the function
                                 SqlMessageParameter sqlMessageParameter = sqlMessage.Parameters.Where(p => p.Name.ToUpper() == parameter.ParameterName.ToUpper()).FirstOrDefault();
-                                result.CommandText += sqlMessageParameter.Value != null ? sqlMessageParameter.Value is string ? $"'{sqlMessageParameter.Value}', " : $"{sqlMessageParameter.Value}, " : "NULL, ";
+                                result.CommandText += sqlMessageParameter.Value != null ? 
+                                                      sqlMessageParameter.Value is string ? 
+                                                      $"'{sqlMessageParameter.Value}', " : $"{sqlMessageParameter.Value}, " : "NULL, ";
                             }
 
                             // Cut additional ", " from query

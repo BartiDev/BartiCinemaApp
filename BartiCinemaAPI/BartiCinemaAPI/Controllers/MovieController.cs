@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BartiCinemaAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MovieController : ControllerBase
     {
@@ -20,11 +20,19 @@ namespace BartiCinemaAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MovieDAL>>> Get(int? id, string title, string director)
+        //[ActionName("GetMovies")]
+        public async Task<IEnumerable<MovieDAL>> Get(int? id, string title, string director)
         {
             return await _movieData.GetMovies(id, title, director);
         }
 
-
+        [HttpGet]
+        //[ActionName("GetMoviesByScreeningDate")]
+        public async Task<IEnumerable<MovieDAL>> GetMoviesByScreeningDate()
+        {
+            DateTime startTime = new DateTime(2022, 3, 27);
+            DateTime endTime = new DateTime(2022, 4, 5);
+            return await _movieData.GetMoviesByScreeningDate(startTime, endTime, 1);
+        }
     }
 }

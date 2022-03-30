@@ -1,0 +1,18 @@
+﻿CREATE FUNCTION dbo.ufn_GetTableInfo
+(
+	@TableName NVARCHAR(128)
+)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT 
+		TABLE_SCHEMA AS TableSchema
+		,TABLE_NAME AS TableName
+		,COLUMN_NAME AS ColumnName
+		,ORDINAL_POSITION AS OrdinalPosition
+		,DATA_TYPE AS DataType
+		,CHARACTER_MAXIMUM_LENGTH AS CharacterMaximumLength
+	FROM INFORMATION_SCHEMA.COLUMNS
+	WHERE TABLE_NAME = @TableName
+)

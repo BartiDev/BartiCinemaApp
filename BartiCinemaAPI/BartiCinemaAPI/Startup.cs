@@ -34,6 +34,7 @@ namespace BartiCinemaAPI
 
             services.AddScoped<IMovieData, MovieData>();
             services.AddScoped<ICinemaData, CinemaData>();
+            services.AddScoped<IScreeningData, ScreeningData>();
 
             services.AddSwaggerGen(c =>
             {

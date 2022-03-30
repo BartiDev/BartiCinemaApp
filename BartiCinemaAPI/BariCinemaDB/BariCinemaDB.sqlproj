@@ -71,6 +71,7 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Functions\" />
     <Folder Include="Movie\Stored Procedures\" />
+    <Folder Include="Cinema\Functions\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Reservation\Tables\Bookings.sql" />
@@ -87,7 +88,10 @@
     <Build Include="Security\Reservation.sql" />
     <Build Include="Movie\Functions\ufn_GetMovies.sql" />
     <Build Include="dbo\Functions\ufn_GetObjectInfo.sql" />
-    <Build Include="Movie\Stored Procedures\usp_GetMovies.sql" />
+    <Build Include="Movie\Functions\ufn_GetMoviesByScreeningDate.sql" />
+    <Build Include="dbo\Functions\ufn_GetTableInfo.sql" />
+    <Build Include="Cinema\Functions\ufn_GetScreenings.sql" />
+    <Build Include="Cinema\Functions\ufn_GetCinemas.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\130\SqlSchemas\master.dacpac">
